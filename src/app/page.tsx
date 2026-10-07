@@ -1,16 +1,10 @@
-import { Cursor, SectionHeading, Selection, Sticker } from "@/components/Decor";
+import { Cursor, Emoji3D, SectionHeading, Selection, Sticker } from "@/components/Decor";
+import { LinksFolder, SectionFolder } from "@/components/FolderMenus";
+import LanyardBadge from "@/components/LanyardBadge";
 import Navbar from "@/components/Navbar";
 import Reveal from "@/components/Reveal";
-import { about, experience, profile, projects, skills } from "@/data/profile";
+import { about, activities, education, experience, profile, projects, skills } from "@/data/profile";
 
-const tileColors = [
-  "bg-[#330000] text-[#ff9a00]",
-  "bg-[#001e36] text-[#31a8ff]",
-  "bg-[#2e1065] text-[#c4b5fd]",
-  "bg-[#00005b] text-[#9999ff]",
-  "bg-[#052e16] text-[#4ade80]",
-  "bg-[#3b0a2a] text-[#f472b6]",
-];
 
 const thumbColors = [
   "from-blue-500 to-indigo-600",
@@ -21,37 +15,22 @@ const thumbColors = [
 
 const cardTilt = ["-rotate-3", "rotate-2 md:translate-y-6", "-rotate-2", "rotate-3 md:translate-y-6"];
 
-const abbr = (s: string) => {
-  const letters = s.replace(/[^A-Za-z]/g, "");
-  return letters.charAt(0).toUpperCase() + letters.charAt(1).toLowerCase();
-};
-
-function InfoBar() {
-  const items = [
-    { k: "NAME", v: profile.nickname },
-    { k: "EMAIL", v: profile.email },
-    { k: "BASED IN", v: profile.location },
-  ];
+/** แถบท้ายเว็บ — กระดาษสีขาวแบบเดียวกับ navbar */
+function FooterBar() {
   return (
-    <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:justify-between">
-      <span className="font-heading text-lg text-white md:text-xl">{profile.role}</span>
-      <ul className="flex flex-wrap justify-center gap-2">
-        {items.map((i) => (
-          <li
-            key={i.k}
-            className="rounded-full border border-amber-100/50 px-4 py-1 text-center leading-tight text-white/90"
-          >
-            <span className="block font-pixel text-[10px] tracking-wider text-amber-100/80">{i.k}</span>
-            <span className="text-xs">{i.v}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col items-center gap-3 rounded-2xl border-2 border-ink bg-paper px-5 py-4 text-sm shadow-[3px_3px_0_#1f2a44] md:flex-row md:justify-between">
+      <a href="#top" className="font-pixel text-lg font-bold text-ink">
+        {profile.nickname}
+        <span className="text-pink">.</span>
+      </a>
+      <a href={`mailto:${profile.email}`} className="font-semibold text-brand hover:underline">
+        ✉ {profile.email}
+      </a>
     </div>
   );
 }
 
 export default function Home() {
-  const allSkills = skills.flatMap((g) => g.items);
 
   return (
     <>
@@ -61,10 +40,15 @@ export default function Home() {
         <section className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-5 pt-24 pb-12">
           <Sticker className="-left-2 top-24 text-6xl md:left-0 md:text-8xl" rotate={-15}>📐</Sticker>
           <Sticker className="right-4 top-20 hidden text-7xl md:block" rotate={10} delay={1}>⌨️</Sticker>
-          <Sticker className="-left-4 top-1/2 hidden text-8xl lg:block" rotate={-8} delay={2}>📁</Sticker>
+          <div
+            className="animate-float absolute left-0 top-[52%] z-30 hidden lg:block"
+            style={{ ["--r" as string]: "-4deg", animationDelay: "2s" }}
+          >
+            <SectionFolder />
+          </div>
           <Sticker className="-right-2 top-1/3 text-6xl md:text-8xl" rotate={12} delay={0.5}>📋</Sticker>
-          <Sticker className="bottom-28 left-2 hidden text-7xl md:block" rotate={-35} delay={1.5}>✏️</Sticker>
-          <Sticker className="bottom-24 right-6 text-5xl md:text-7xl" rotate={20} delay={2.5}>✂️</Sticker>
+          <Sticker className="bottom-44 left-2 hidden text-7xl md:block" rotate={-35} delay={1.5}>✏️</Sticker>
+          <Sticker className="bottom-44 right-6 hidden text-7xl md:block" rotate={20} delay={2.5}>✂️</Sticker>
 
           <Reveal>
             <div className="paper-shadow relative mx-auto w-full max-w-4xl -rotate-1">
@@ -72,7 +56,6 @@ export default function Home() {
               <div className="paper torn-bottom holes-top px-6 pt-16 pb-14 md:px-16">
                 <span aria-hidden className="absolute left-[12%] top-16 text-2xl text-blue-500">✦</span>
                 <span aria-hidden className="absolute right-[10%] top-24 text-xl text-pink">✦</span>
-                <span aria-hidden className="absolute bottom-24 left-[8%] text-lg text-pink">✦</span>
 
                 <div className="relative mx-auto w-fit">
                   <Selection className="px-4 py-3 md:px-8 md:py-5">
@@ -82,8 +65,8 @@ export default function Home() {
                       <span className="pl-[0.6em]">FOLIO</span>
                     </h1>
                   </Selection>
-                  <span className="absolute -right-4 -top-6 font-heading text-2xl font-medium text-pink sm:-right-10 sm:text-4xl">
-                    ผลงาน.
+                  <span className="absolute -right-3 -top-3 z-10 rotate-6 rounded-lg border-2 border-ink bg-pink px-3 py-0.5 font-heading text-xl font-medium text-white shadow-[3px_3px_0_#1f2a44] sm:-right-8 sm:-top-4 sm:text-3xl">
+                    ผลงาน<span className="text-yellow-300">.</span>
                   </span>
                   <span className="absolute -bottom-5 -left-4 -rotate-12 rounded-md bg-white px-2 font-pixel text-2xl font-bold text-pink shadow-md sm:text-4xl">
                     2026
@@ -91,10 +74,18 @@ export default function Home() {
                   <Cursor className="absolute -bottom-10 right-4 h-10 w-10 md:h-14 md:w-14" />
                 </div>
 
-                <div className="mt-16 grid gap-6 md:grid-cols-[1.3fr_1fr] md:items-end">
+                <div className="mt-16 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
                   <div>
                     <p className="font-heading text-2xl font-medium md:text-3xl">{profile.name}</p>
-                    <p className="mt-1 text-muted">{profile.tagline}</p>
+                    <p className="mt-1 font-heading text-lg text-pink">{profile.role}</p>
+                    {/* ตัดบรรทัดเฉพาะตรงช่องว่างระหว่างวลี กันคำไทยหรือ "Full-Stack" ขาดกลางคำ */}
+                    <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">
+                      {profile.tagline.split(/ (?=ผู้)/).map((part) => (
+                        <span key={part} className="inline-block pr-1.5">
+                          {part.replaceAll("-", "\u2011")}
+                        </span>
+                      ))}
+                    </p>
                     <div className="mt-6 flex flex-wrap gap-3">
                       <a
                         href="#projects"
@@ -110,20 +101,36 @@ export default function Home() {
                       </a>
                     </div>
                   </div>
-                  <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-brand">
-                    {[...skills.map((g) => `${g.group} Dev`), "UI / UX"].map((s) => (
-                      <li key={s} className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 bg-brand" /> {s}
+
+                  {/* ตอนนี้ทำอะไรอยู่ — ดึงจากประสบการณ์ที่ current และการศึกษา */}
+                  <div className="relative rotate-1 rounded-xl border-2 border-dashed border-brand/40 bg-white/80 p-4 md:justify-self-end">
+                    <p className="mb-3 flex items-center gap-2 font-pixel text-xs font-bold text-brand">
+                      <span className="h-2 w-2 animate-pulse rounded-full bg-pink" /> NOW
+                    </p>
+                    <ul className="space-y-2.5 text-sm">
+                      {experience
+                        .filter((e) => e.current)
+                        .map((e) => (
+                          <li key={e.title} className="flex items-center gap-3">
+                            <Emoji3D char={e.emoji} className="shrink-0 text-xl" />
+                            <span className="leading-tight">
+                              <span className="block font-semibold">{e.title.replace(/\s*\(.*\)$/, "")}</span>
+                              <span className="text-xs text-muted">{e.org.split(" · ")[0]}</span>
+                            </span>
+                          </li>
+                        ))}
+                      <li className="flex items-center gap-3">
+                        <Emoji3D char="🎓" className="shrink-0 text-xl" />
+                        <span className="leading-tight">
+                          <span className="block font-semibold">{education.degree}</span>
+                          <span className="text-xs text-muted">{education.school}</span>
+                        </span>
                       </li>
-                    ))}
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <InfoBar />
           </Reveal>
         </section>
 
@@ -131,38 +138,21 @@ export default function Home() {
         <section id="about" className="relative mx-auto w-full max-w-6xl px-5 py-20">
           <Reveal>
             <div className="board relative">
-              <Sticker className="-right-3 -top-10 text-7xl md:-right-8 md:text-8xl" rotate={12}>📁</Sticker>
+              <div
+                className="animate-float absolute -right-2 -top-16 z-30 md:-right-10"
+                style={{ ["--r" as string]: "6deg" }}
+              >
+                <LinksFolder />
+              </div>
 
               <div className="grid-paper holes-top rounded-xl px-5 pt-14 pb-8 md:px-10">
-                <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
+                <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
                   {/* ป้ายห้อยคอ */}
-                  <div className="relative mx-auto w-full max-w-[260px] pt-10">
-                    <span aria-hidden className="absolute left-1/2 top-0 h-14 w-8 -translate-x-1/2 rounded-sm bg-yellow-400 shadow" />
-                    <div className="relative -rotate-3 rounded-2xl border-2 border-yellow-500 bg-yellow-300 p-3 shadow-xl">
-                      <span aria-hidden className="mx-auto mb-3 block h-2 w-12 rounded-full bg-yellow-600/50" />
-                      <div className="flex aspect-[4/5] items-center justify-center rounded-xl bg-white text-8xl">
-                        👩‍💻
-                      </div>
-                    </div>
-                    <div className="paper-shadow relative -mt-4 rotate-2">
-                      <div className="paper torn-bottom px-5 pt-5 pb-7 text-sm">
-                        <p className="mb-3 font-heading text-lg">
-                          <span className="rounded bg-pink/15 px-1 text-pink">{profile.nickname}</span>
-                        </p>
-                        <dl className="space-y-1.5">
-                          {[
-                            ["ชื่อ", profile.name],
-                            ["ตำแหน่ง", profile.role],
-                            ["ที่อยู่", profile.location],
-                          ].map(([k, v]) => (
-                            <div key={k} className="flex gap-2 border-b border-dashed border-gray-300 pb-1">
-                              <dt className="w-14 shrink-0 text-muted">{k}</dt>
-                              <dd>{v}</dd>
-                            </div>
-                          ))}
-                        </dl>
-                      </div>
-                    </div>
+                  <div className="relative mx-auto w-full max-w-[300px]">
+                    {/* canvas กว้างกว่าคอลัมน์ ลากป้ายออกด้านข้างได้โดยไม่โดนตัด */}
+                    <LanyardBadge className="pointer-events-none absolute -top-14 left-1/2 z-20 h-[600px] w-[calc(100vw-40px)] max-w-[760px] -translate-x-1/2 lg:left-[-80px] lg:translate-x-0" />
+                    <div aria-hidden className="h-[510px]" />
+                    <p className="text-center font-heading text-xs text-muted">✦ ลองลากป้ายเล่นดูสิ ✦</p>
                   </div>
 
                   {/* เนื้อหา */}
@@ -171,58 +161,38 @@ export default function Home() {
                       <h2 className="pixel-title font-pixel text-4xl font-bold md:text-5xl">ABOUT ME</h2>
                     </Selection>
 
-                    <div className="grid gap-8 md:grid-cols-2">
-                      <div>
-                        <h3 className="mb-4 font-heading text-lg font-medium">
-                          ประสบการณ์ <span className="text-brand">▾</span>
-                        </h3>
-                        <ol className="space-y-5">
-                          {experience.map((e) => (
-                            <li key={e.title + e.period} className="text-sm">
-                              <p className="flex flex-wrap gap-x-3">
-                                <span className="text-muted">{e.period}</span>
-                                <span className="font-semibold text-pink">{e.title}</span>
-                              </p>
-                              <p className="font-medium">{e.org}</p>
-                              <p className="mt-1 text-muted">{e.detail}</p>
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
+                    <p className="max-w-2xl leading-relaxed">{profile.intro}</p>
+                    {about.map((p) => (
+                      <p key={p} className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{p}</p>
+                    ))}
 
-                      <div>
-                        <h3 className="mb-4 font-heading text-lg font-medium">
-                          เกี่ยวกับฉัน <span className="text-brand">▾</span>
-                        </h3>
-                        <p className="text-sm leading-relaxed">{profile.intro}</p>
-                        {about.map((p) => (
-                          <p key={p} className="mt-2 text-sm leading-relaxed text-muted">{p}</p>
-                        ))}
-
-                        <h3 className="mt-8 mb-4 font-heading text-lg font-medium">
-                          ทักษะ <span className="text-brand">▾</span>
-                        </h3>
-                        <ul className="flex flex-wrap gap-2.5">
-                          {allSkills.map((s, i) => (
-                            <li key={s} title={s} className="group flex w-12 flex-col items-center gap-1">
-                              <span
-                                className={`flex h-10 w-10 items-center justify-center rounded-lg font-bold shadow transition group-hover:-translate-y-1 ${tileColors[i % tileColors.length]}`}
+                    <h3 className="mt-8 mb-3 font-heading text-lg font-medium">
+                      ทักษะ <span className="text-brand">▾</span>
+                    </h3>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {skills.map((g) => (
+                        <div key={g.group} className="rounded-xl border border-dashed border-brand/30 bg-white/70 p-3">
+                          <p className="mb-2 flex flex-wrap items-baseline gap-x-2">
+                            <span className="font-heading font-medium text-brand">{g.group}</span>
+                            <span className="text-[11px] text-muted">{g.th}</span>
+                          </p>
+                          <ul className="flex flex-wrap gap-1.5">
+                            {g.items.map((s) => (
+                              <li
+                                key={s.name}
+                                className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white py-1 pr-2.5 pl-1.5 text-xs shadow-sm transition hover:-translate-y-0.5 hover:shadow"
                               >
-                                {abbr(s)}
-                              </span>
-                              <span className="w-full truncate text-center text-[10px] text-muted">{s}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={s.icon} alt="" loading="lazy" className="h-4 w-4 object-contain" />
+                                {s.name}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                     </div>
 
-                    <div className="mt-10 flex flex-wrap items-center gap-3">
-                      {[...skills.map((g) => g.group), "UI / UX"].map((t) => (
-                        <span key={t} className="rounded-full border-2 border-brand/60 bg-white px-4 py-1 text-sm text-brand">
-                          {t}
-                        </span>
-                      ))}
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
                       <span className="ml-auto rotate-3 bg-yellow-200 px-4 py-2 font-heading text-sm shadow-md">
                         📌 พร้อมรับงานใหม่!
                       </span>
@@ -232,6 +202,136 @@ export default function Home() {
               </div>
             </div>
           </Reveal>
+        </section>
+
+        {/* ============ Experience ============ */}
+        <section id="experience" className="relative mx-auto w-full max-w-6xl px-5 py-20">
+          <Reveal>
+            <SectionHeading en="EXPERIENCE" th="เส้นทางการทำงาน" light />
+          </Reveal>
+
+          <ol className="relative mx-auto max-w-4xl">
+            {/* เส้นไทม์ไลน์ */}
+            <span
+              aria-hidden
+              className="absolute top-0 bottom-0 left-[16px] border-l-[3px] border-dashed border-white/70 md:left-[calc(50%-1px)]"
+            />
+            {experience.map((e, i) => {
+              const left = i % 2 === 0;
+              return (
+                <li
+                  key={e.title}
+                  className={`relative mb-10 pl-14 md:w-1/2 md:pl-0 ${left ? "md:pr-12" : "md:ml-auto md:pl-12"}`}
+                >
+                  <span
+                    className={`absolute left-0 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-paper text-xl shadow-[2px_2px_0_#1f2a44] ${
+                      left ? "md:left-auto md:-right-[18px]" : "md:-left-[18px]"
+                    }`}
+                  >
+                    <Emoji3D char={e.emoji} />
+                  </span>
+                  <Reveal delay={i * 80}>
+                    <article className={`paper-shadow relative transition hover:rotate-0 ${left ? "-rotate-1" : "rotate-1"}`}>
+                      <div className="paper px-5 pt-4 pb-5">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="rounded-full bg-brand px-3 py-0.5 font-heading text-xs text-white">{e.period}</span>
+                          {e.current && (
+                            <span className="flex items-center gap-1 rounded-full bg-pink/15 px-2 py-0.5 text-[11px] font-semibold text-pink">
+                              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-pink" /> ตอนนี้
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="mt-2 font-heading text-lg font-medium">{e.title}</h3>
+                        <p className="text-sm font-semibold text-brand">{e.org}</p>
+                        <p className="mt-1.5 text-sm leading-relaxed text-muted">{e.detail}</p>
+                        {e.tags && (
+                          <ul className="mt-3 flex flex-wrap gap-1.5">
+                            {e.tags.map((t) => (
+                              <li key={t} className="rounded bg-blue-100 px-2 py-0.5 text-[11px] font-semibold text-brand">
+                                {t}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </article>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* การศึกษา */}
+          <Reveal>
+            <div className="relative mx-auto mt-6 w-fit max-w-full rotate-1 bg-yellow-200 px-6 py-5 shadow-[0_10px_20px_rgba(10,30,90,0.3)]">
+              <span aria-hidden className="absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 rotate-2 bg-white/60" />
+              <div className="flex items-center gap-4">
+                <Emoji3D char="🎓" className="text-4xl" />
+                <div>
+                  <p className="font-heading text-xs text-muted">การศึกษา · {education.period}</p>
+                  <p className="font-heading text-lg font-medium">{education.degree}</p>
+                  <p className="text-sm">
+                    {education.school} · <span className="text-muted">{education.detail}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* งานอาสาและกิจกรรม */}
+          <div className="mt-24">
+            <Reveal>
+              <SectionHeading en="ACTIVITIES" th="งานอาสาและกิจกรรม" light />
+            </Reveal>
+            {(
+              [
+                ["competition", "🏆 การแข่งขันหุ่นยนต์"],
+                ["volunteer", "🤝 งานอาสา"],
+              ] as const
+            ).map(([kind, title]) => (
+              <div key={kind} className="mb-12 last:mb-0">
+                <h3 className="mb-6 font-heading text-xl text-white">{title}</h3>
+                <div className="grid gap-8 sm:grid-cols-2">
+                  {activities
+                    .filter((a) => a.kind === kind)
+                    .map((a, i) => (
+                      <Reveal key={a.event + a.role} delay={i * 80}>
+                        <article
+                          className={`paper-shadow relative h-full transition hover:rotate-0 ${i % 2 ? "rotate-1" : "-rotate-1"}`}
+                        >
+                          <span className="clip" />
+                          <div className="paper flex h-full gap-4 px-5 pt-7 pb-5">
+                            {a.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={a.image}
+                                alt={a.event}
+                                loading="lazy"
+                                className="h-36 w-28 shrink-0 rounded-lg border-2 border-ink object-cover shadow-[2px_2px_0_#1f2a44]"
+                              />
+                            ) : (
+                              <Emoji3D char={a.emoji} className="shrink-0 text-4xl" />
+                            )}
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="rounded-full bg-brand px-3 py-0.5 font-heading text-xs text-white">{a.period}</span>
+                                {a.award && (
+                                  <span className="rounded-full bg-yellow-200 px-2 py-0.5 text-[11px] font-semibold text-ink">{a.award}</span>
+                                )}
+                              </div>
+                              <h3 className="mt-2 font-heading text-lg font-medium">{a.role}</h3>
+                              <p className="text-sm font-semibold text-brand">{a.event}</p>
+                              <p className="text-xs text-muted">{a.org}</p>
+                              <p className="mt-1.5 text-sm leading-relaxed text-muted">{a.detail}</p>
+                            </div>
+                          </div>
+                        </article>
+                      </Reveal>
+                    ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* ============ Projects ============ */}
@@ -250,10 +350,28 @@ export default function Home() {
                   <span className="clip" />
                   <div className="paper holes-left torn-bottom pl-9 pr-5 pt-7 pb-9">
                     <div
-                      className={`flex aspect-[4/3] flex-col items-center justify-center rounded-lg bg-gradient-to-br text-white shadow-inner ${thumbColors[i % thumbColors.length]}`}
+                      className={`relative flex aspect-[4/3] flex-col items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br text-white shadow-inner ${thumbColors[i % thumbColors.length]}`}
                     >
-                      <span className="text-5xl drop-shadow">{p.emoji}</span>
-                      <span className="mt-2 px-2 text-center font-heading font-medium drop-shadow">{p.title}</span>
+                      {p.image ? (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={p.image}
+                            alt={`ภาพหน้าจอ ${p.title}`}
+                            loading="lazy"
+                            className="absolute inset-0 h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+                          />
+                          <Emoji3D
+                            char={p.emoji}
+                            className="absolute bottom-1.5 right-1.5 rounded-lg bg-white/90 p-1 text-3xl shadow"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <Emoji3D char={p.emoji} className="text-5xl drop-shadow" />
+                          <span className="mt-2 px-2 text-center font-heading font-medium drop-shadow">{p.title}</span>
+                        </>
+                      )}
                     </div>
                     <p className="mt-4 font-pixel text-3xl font-bold text-gray-300">
                       {String(i + 1).padStart(2, "0")}
@@ -329,8 +447,8 @@ export default function Home() {
       </main>
 
       <footer className="mx-auto w-full max-w-6xl px-5 pb-8">
-        <InfoBar />
-        <p className="mt-6 text-center text-xs text-white/60">© 2026 {profile.name} · Made with Next.js</p>
+        <FooterBar />
+        <p className="mt-4 text-center text-xs text-white/60">© 2026 {profile.name} · Made with Next.js</p>
       </footer>
     </>
   );

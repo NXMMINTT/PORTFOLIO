@@ -31,6 +31,58 @@ export function Cursor({ className = "" }: { className?: string }) {
   );
 }
 
+// อีโมจิ 3 มิติจาก Microsoft Fluent Emoji (MIT) — เพิ่มอีโมจิใหม่ได้ที่นี่
+const FLUENT = "https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets";
+const emoji3d: Record<string, string> = {
+  "📐": "Triangular ruler/3D/triangular_ruler_3d.png",
+  "⌨": "Keyboard/3D/keyboard_3d.png",
+  "📁": "File folder/3D/file_folder_3d.png",
+  "📋": "Clipboard/3D/clipboard_3d.png",
+  "✏": "Pencil/3D/pencil_3d.png",
+  "✂": "Scissors/3D/scissors_3d.png",
+  "✉": "Envelope/3D/envelope_3d.png",
+  "🧭": "Compass/3D/compass_3d.png",
+  "🏨": "Hotel/3D/hotel_3d.png",
+  "🛒": "Shopping cart/3D/shopping_cart_3d.png",
+  "🩺": "Stethoscope/3D/stethoscope_3d.png",
+  "🧮": "Abacus/3D/abacus_3d.png",
+  "🤖": "Robot/3D/robot_3d.png",
+  "🏠": "House/3D/house_3d.png",
+  "⚖": "Balance scale/3D/balance_scale_3d.png",
+  "🚚": "Delivery truck/3D/delivery_truck_3d.png",
+  "🌟": "Glowing star/3D/glowing_star_3d.png",
+  "💻": "Laptop/3D/laptop_3d.png",
+  "🎨": "Artist palette/3D/artist_palette_3d.png",
+  "🎓": "Graduation cap/3D/graduation_cap_3d.png",
+  "🏮": "Red paper lantern/3D/red_paper_lantern_3d.png",
+  "🍬": "Candy/3D/candy_3d.png",
+  "🧩": "Puzzle piece/3D/puzzle_piece_3d.png",
+  "🎟": "Admission tickets/3D/admission_tickets_3d.png",
+  "👩‍💻": "Woman technologist/Default/3D/woman_technologist_3d_default.png",
+};
+
+export function emoji3dUrl(char: string) {
+  const path = emoji3d[char.replace(/️/g, "")];
+  return path ? `${FLUENT}/${encodeURI(path)}` : null;
+}
+
+/** แสดงอีโมจิเป็นภาพ 3 มิติ ขนาดตาม font-size (ถ้าไม่มีในรายการจะแสดงอีโมจิปกติ) */
+export function Emoji3D({ char, className = "" }: { char: string; className?: string }) {
+  const src = emoji3dUrl(char);
+  if (!src) return <span className={className}>{char}</span>;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      aria-hidden
+      draggable={false}
+      loading="lazy"
+      className={`inline-block h-[1.2em] w-[1.2em] object-contain ${className}`}
+    />
+  );
+}
+
 /** สติกเกอร์อีโมจิลอยตกแต่ง */
 export function Sticker({
   children,
@@ -38,7 +90,7 @@ export function Sticker({
   rotate = 0,
   delay = 0,
 }: {
-  children: ReactNode;
+  children: string;
   className?: string;
   rotate?: number;
   delay?: number;
@@ -49,7 +101,7 @@ export function Sticker({
       className={`sticker animate-float pointer-events-none absolute select-none ${className}`}
       style={{ ["--r" as string]: `${rotate}deg`, animationDelay: `${delay}s` }}
     >
-      {children}
+      <Emoji3D char={children} />
     </span>
   );
 }
