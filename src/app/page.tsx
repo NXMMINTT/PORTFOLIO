@@ -280,17 +280,16 @@ export default function Home() {
 
           {/* งานอาสาและกิจกรรม */}
           <div className="mt-24">
-            <Reveal>
-              <SectionHeading en="ACTIVITIES" th="งานอาสาและกิจกรรม" light />
-            </Reveal>
             {(
               [
-                ["competition", "🏆 การแข่งขันหุ่นยนต์"],
-                ["volunteer", "🤝 งานอาสา"],
+                ["competition", "COMPETITIONS", "การแข่งขันและแฮกกาธอน"],
+                ["volunteer", "VOLUNTEER", "งานอาสาและกิจกรรม"],
               ] as const
-            ).map(([kind, title]) => (
-              <div key={kind} className="mb-12 last:mb-0">
-                <h3 className="mb-6 font-heading text-xl text-white">{title}</h3>
+            ).map(([kind, en, th]) => (
+              <div key={kind} className="mb-20 last:mb-0">
+                <Reveal>
+                  <SectionHeading en={en} th={th} light />
+                </Reveal>
                 <div className="grid gap-8 sm:grid-cols-2">
                   {activities
                     .filter((a) => a.kind === kind)
@@ -302,13 +301,28 @@ export default function Home() {
                           <span className="clip" />
                           <div className="paper flex h-full gap-4 px-5 pt-7 pb-5">
                             {a.image ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img
-                                src={a.image}
-                                alt={a.event}
-                                loading="lazy"
-                                className="h-36 w-28 shrink-0 rounded-lg border-2 border-ink object-cover shadow-[2px_2px_0_#1f2a44]"
-                              />
+                              // รูปแบบโพลารอยด์: กรอบขาว เทปแปะ ปรับสีโทนฟิล์ม ชี้แล้วเป็นสีจริง
+                              <figure
+                                className={`group/photo relative w-32 shrink-0 self-start bg-white p-1.5 pb-7 shadow-[0_6px_14px_rgba(10,30,90,0.28)] transition duration-300 hover:z-10 hover:rotate-0 hover:scale-110 ${
+                                  i % 2 ? "rotate-3" : "-rotate-3"
+                                }`}
+                              >
+                                <span
+                                  aria-hidden
+                                  className="absolute -top-2.5 left-1/2 h-5 w-14 -translate-x-1/2 rotate-[-4deg] border border-white/60 bg-yellow-100/80 shadow-sm"
+                                />
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={a.image}
+                                  alt={a.event}
+                                  loading="lazy"
+                                  className="aspect-[3/4] w-full object-cover [filter:sepia(0.28)_saturate(0.75)_contrast(1.05)_brightness(1.03)] transition duration-500 group-hover/photo:[filter:none]"
+                                />
+                                <figcaption className="absolute inset-x-0 bottom-1.5 truncate px-1.5 text-center font-heading text-[11px] text-ink/70">
+                                  {a.award ? `${a.award.split(" ")[0]} ` : ""}
+                                  {a.period}
+                                </figcaption>
+                              </figure>
                             ) : (
                               <Emoji3D char={a.emoji} className="shrink-0 text-4xl" />
                             )}
@@ -448,7 +462,9 @@ export default function Home() {
 
       <footer className="mx-auto w-full max-w-6xl px-5 pb-8">
         <FooterBar />
-        <p className="mt-4 text-center text-xs text-white/60">© 2026 {profile.name} · Made with Next.js</p>
+        <p className="mt-4 text-center font-heading text-sm text-white/85">
+          © 2026 Thidarat Tarasi · ออกแบบและเขียนโค้ดด้วย <span className="text-pink">♡</span>
+        </p>
       </footer>
     </>
   );

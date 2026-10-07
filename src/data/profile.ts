@@ -213,6 +213,29 @@ export type Activity = {
 };
 
 export const activities: Activity[] = [
+  // ---- การแข่งขัน ----
+  {
+    kind: "competition",
+    period: "15–16 ต.ค. 2026",
+    role: "U-Hackathon 2026",
+    event: "Flow Summit by U-topia",
+    org: "โรงแรมอวานี สุขุมวิท กรุงเทพฯ",
+    detail: "แฮกกาธอน 24 ชั่วโมง สาย AI และ Web3 ชิงเงินรางวัลรวม 1,000,000 บาท",
+    award: "🎯 เข้ารอบ 40 ทีมสุดท้าย",
+    image: "/activities/u-hackathon-2026.jpg",
+    emoji: "💻",
+  },
+  {
+    kind: "competition",
+    period: "2026",
+    role: "AI Hackathon Route Optimization 2026",
+    event: "BU × SCG-CPAC",
+    org: "ผลงาน: ROUTE",
+    detail:
+      "พัฒนาเว็บจัดเส้นทางรถส่งของหลายคัน (CVRP) ด้วย Google OR-Tools ให้ระยะทางรวมสั้นที่สุด ตามเกณฑ์ gap ต่ำกว่า 5% จากค่า optimal",
+    award: "⏳ รอประกาศผล",
+    emoji: "🚚",
+  },
   // ---- การแข่งขันหุ่นยนต์ (สมัยมัธยม) ----
   {
     kind: "competition",

@@ -361,7 +361,8 @@ function Band({ images, maxSpeed = 50, minSpeed = 0, isMobile = false }: BandPro
       [j1, j2].forEach((ref) => {
         const lerped = getLerped(ref.current);
         const d = Math.max(0.1, Math.min(1, lerped.distanceTo(ref.current.translation())));
-        lerped.lerp(ref.current.translation(), delta * (minSpeed + d * (maxSpeed - minSpeed)));
+        // จำกัดค่าไม่ให้เกิน 1 — ถ้าแท็บถูกพักไว้นาน delta จะใหญ่มากจนเส้นสายเพี้ยนเป็น NaN
+        lerped.lerp(ref.current.translation(), Math.min(1, Math.min(delta, 0.1) * (minSpeed + d * (maxSpeed - minSpeed))));
       });
       curve.points[0].copy(j3.current.translation());
       curve.points[1].copy(getLerped(j2.current));
