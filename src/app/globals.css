@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --desk: #2f6be4;
+  --desk-dark: #1d4fc4;
+  --ink: #1f2a44;
+  --muted: #5b6478;
+  --blue: #2563eb;
+  --pink: #e8459b;
+  --yellow: #fbbf24;
+  --paper: #fbfaf5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-desk: var(--desk);
+  --color-desk-dark: var(--desk-dark);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-brand: var(--blue);
+  --color-pink: var(--pink);
+  --color-paper: var(--paper);
+  --font-sans: var(--font-body), sans-serif;
+  --font-heading: var(--font-heading), var(--font-body), sans-serif;
+  --font-pixel: var(--font-pixel), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
+/* พื้นโต๊ะ: สีน้ำเงินลายตาราง */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background-color: var(--desk);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* กระดาษยับเล็กน้อย */
+.paper {
+  position: relative;
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(0, 0, 0, 0.03) 39%, transparent 41%),
+    linear-gradient(205deg, transparent 58%, rgba(0, 0, 0, 0.035) 59%, transparent 61%),
+    linear-gradient(160deg, transparent 20%, rgba(0, 0, 0, 0.02) 21%, transparent 23%),
+    var(--paper);
+}
+
+/* กระดาษตาราง */
+.grid-paper {
+  position: relative;
+  background-color: #fdfcf8;
+  background-image:
+    linear-gradient(#dfe7f5 1px, transparent 1px),
+    linear-gradient(90deg, #dfe7f5 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ขอบล่างแบบฉีก (ใช้กับ wrapper .paper-shadow เพื่อให้มีเงา) */
+.torn-bottom {
+  --t: 9px;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+    50% / calc(var(--t) * 2) 100%;
+}
+.paper-shadow {
+  filter: drop-shadow(0 14px 18px rgba(10, 30, 90, 0.35));
+}
+
+/* รูห่วงสมุด */
+.holes-top::before,
+.holes-left::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.holes-top::before {
+  top: 12px;
+  left: 28px;
+  right: 28px;
+  height: 14px;
+  background: radial-gradient(circle, var(--desk-dark) 5px, transparent 5.5px) 0 0 / 30px 14px repeat-x;
+}
+.holes-left::before {
+  top: 24px;
+  bottom: 24px;
+  left: 8px;
+  width: 14px;
+  background: radial-gradient(circle, var(--desk-dark) 4.5px, transparent 5px) 0 0 / 14px 24px repeat-y;
+}
+
+/* คลิปหนีบกระดาษ */
+.clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  z-index: 3;
+  width: 46px;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 4px 4px 7px 7px;
+  background: linear-gradient(#f472b6, #db2777);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+}
+.clip::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  top: -15px;
+  height: 18px;
+  border: 3px solid #374151;
+  border-bottom: none;
+  border-radius: 9px 9px 0 0;
+}
+
+/* กรอบไม้ */
+.board {
+  padding: 14px;
+  border-radius: 20px;
+  background: repeating-linear-gradient(95deg, #a0693a 0 6px, #94602f 6px 14px, #a87140 14px 22px);
+  box-shadow: 0 24px 40px rgba(10, 30, 90, 0.4), inset 0 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+.pixel-title {
+  color: var(--blue);
+  text-shadow: 3px 3px 0 #fff, 6px 6px 0 #9dbaf7;
+}
+
+.sticker {
+  filter: drop-shadow(0 8px 10px rgba(10, 30, 90, 0.35));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
+}
+.animate-float { animation: float 5s ease-in-out infinite; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-float { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
