@@ -222,7 +222,6 @@ export const activities: Activity[] = [
     org: "โรงแรมอวานี สุขุมวิท กรุงเทพฯ",
     detail: "แฮกกาธอน 24 ชั่วโมง สาย AI และ Web3 ชิงเงินรางวัลรวม 1,000,000 บาท",
     award: "🎯 เข้ารอบ 40 ทีมสุดท้าย",
-    image: "/activities/u-hackathon-2026.jpg",
     emoji: "💻",
   },
   {
@@ -245,7 +244,6 @@ export const activities: Activity[] = [
     org: "รายการคัดเลือกตัวแทนประเทศไทยสู่การแข่งขันระดับนานาชาติ",
     detail: "แข่งขันหุ่นยนต์ซูโม่ด้วย LEGO EV3 ในรายการคัดเลือกตัวแทนประเทศไทยไปแข่งระดับนานาชาติ",
     award: "🥈 เหรียญเงิน",
-    image: "/activities/sumo-tmr-2022.jpg",
     emoji: "🤖",
   },
   {
@@ -256,7 +254,6 @@ export const activities: Activity[] = [
     org: "ระดับเขตพื้นที่การศึกษา ระดับจังหวัด",
     detail: "แข่งขันหุ่นยนต์ EV3 วิ่งตามภารกิจบนสนามแข่ง ในงานศิลปหัตถกรรมนักเรียน",
     award: "🥇 เหรียญทอง",
-    image: "/activities/ev3-silpa-2565.jpg",
     emoji: "🤖",
   },
   {
@@ -266,7 +263,6 @@ export const activities: Activity[] = [
     event: "Line Tracking Robot Contest",
     org: "คณะวิศวกรรมศาสตร์ มหาวิทยาลัยภาคตะวันออกเฉียงเหนือ",
     detail: "สร้างหุ่นยนต์อัตโนมัติที่วิ่งตามเส้นด้วยความเร็วสูง โดยใช้ทักษะด้านหุ่นยนต์และระบบควบคุม",
-    image: "/activities/line-tracking.jpg",
     emoji: "🤖",
   },
   {
@@ -276,7 +272,6 @@ export const activities: Activity[] = [
     event: "นิทรรศการนวัตกรรมหุ่นยนต์",
     org: "หุ่นยนต์และระบบสมองกลฝังตัว",
     detail: "ได้รับคัดเลือกให้ออกแบบและจัดแสดงนิทรรศการนวัตกรรมหุ่นยนต์ เพื่อเผยแพร่ความรู้ด้านเทคโนโลยีให้คณะครูและนักเรียน",
-    image: "/activities/robot-exhibition.jpg",
     emoji: "🤖",
   },
   // ---- งานอาสา ----
@@ -288,7 +283,6 @@ export const activities: Activity[] = [
     org: "คณะวิศวกรรมศาสตร์ · มหาวิทยาลัยกรุงเทพ",
     detail:
       "ดูแลบูธและแนะนำ “Chinatown Wonder” เกมกระดานเสมือนจริง (AR) บน Android ผลงานของรุ่นพี่คณะวิศวกรรมศาสตร์ ที่พาเที่ยวเยาวราชผ่านเกม พัฒนาด้วย Unity และ Photon Engine",
-    image: "/activities/chinatown-wonder-2025.jpg",
     emoji: "🏮",
   },
   {
@@ -299,7 +293,6 @@ export const activities: Activity[] = [
     org: "BU Robot Studio · มหาวิทยาลัยกรุงเทพ",
     detail:
       "จัดแสดงตู้ขายสายไหมอัตโนมัติที่พัฒนาร่วมกับทีม BU Robot Studio และอธิบายการทำงานของฮาร์ดแวร์และซอฟต์แวร์ให้ผู้เข้าชม",
-    image: "/activities/bu-open-house-2023.jpg",
     emoji: "🍬",
   },
   {
@@ -309,7 +302,6 @@ export const activities: Activity[] = [
     event: "4th ACSP Educational Fair",
     org: "BU Swift Coding Club · Assumption College Samutprakarn",
     detail: "สอนพื้นฐานการเขียนโค้ดด้วย Swift Playgrounds ให้นักเรียนทุกวัยผ่านกิจกรรมลงมือทำที่บูธ",
-    image: "/activities/acsp-swift-workshop-2023.jpg",
     emoji: "🧩",
   },
   {
@@ -319,7 +311,6 @@ export const activities: Activity[] = [
     event: "BURS Masterclass",
     org: "มหาวิทยาลัยกรุงเทพ",
     detail: "ทีมงานช่วยจัดงาน BURS Masterclass เวิร์กช็อปเขียนแอปบน Mac",
-    image: "/activities/burs-masterclass-2023.jpg",
     emoji: "🎟",
   },
 ];
